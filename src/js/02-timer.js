@@ -9,12 +9,9 @@ const refs = {
   dataHours: document.querySelector('[data-hours]'),
   dataMinutes: document.querySelector('[data-minutes]'),
   dataSeconds: document.querySelector('[data-seconds]'),
-
 }
 
 refs.startBtn.setAttribute('disabled', true)
-
-// let timeToEnd = 0;
 
 let targetTime = null;
 
@@ -76,10 +73,14 @@ function updateTimerValues({ days, hours, minutes, seconds }) {
 }
 
 refs.startBtn.addEventListener('click', () => {
-  setInterval(() => {  
+  const timerId = setInterval(() => {  
     updateTimerValues(convertMs(targetTime - Date.now()));
-    // timeToEnd -= 1000;
+
   }, 1000)
+
+  setTimeout(() => {
+    clearInterval(timerId)
+  } , targetTime - Date.now())
 })
 
 
